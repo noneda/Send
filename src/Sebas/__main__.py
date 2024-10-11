@@ -1,3 +1,4 @@
+from geopy.geocoders import Nominatim
 import numpy
 
 #Se Crean las listas de nombres y edades
@@ -47,3 +48,67 @@ maximo = numpy.amax(listaNumero)
 potencia = numpy.pow(listaNumero, 2)
 
 print(f"\nMediana:  {mediana}\nMinimo: {minimo}\nMaximo: {maximo}\nPotencias: {potencia}")
+
+#Ejercicio 3
+print(f"\nEJercicio 3\n")
+# Inicializar el geocodificador
+geocoder = Nominatim(user_agent="city_coordinates")
+
+# Diccionario para almacenar las coordenadas de las ciudades
+ciudades = {}
+
+# Lista de ciudades de ejemplo
+lista_ciudades = ['Bogotá', 'Medellín', 'Cali', 'Barranquilla', 'Cartagena']
+
+# Obtener y almacenar las coordenadas de cada ciudad
+for ciudad in lista_ciudades:
+    location = geocoder.geocode(ciudad)
+    if location:
+        ciudades[ciudad] = (location.latitude, location.longitude)
+    else:
+        ciudades[ciudad] = (None, None)
+
+# Solicitar al usuario que ingrese el nombre de una ciudad
+ciudad_usuario = input("Ingrese el nombre de una ciudad: ")
+
+# Buscar y mostrar las coordenadas de la ciudad ingresada
+if ciudad_usuario in ciudades:
+    latitud, longitud = ciudades[ciudad_usuario]
+    if latitud and longitud:
+        print(f"Las coordenadas de {ciudad_usuario} son: Latitud {latitud}, Longitud {longitud}")
+    else:
+        print(f"No se encontraron coordenadas para {ciudad_usuario}.")
+else:
+    print(f"{ciudad_usuario} no está en la lista de ciudades.")
+
+print(f"\nEjercicio 4\n")
+
+# Conjuntos de estudiantes que han aprobado cada asignatura
+asignatura1 = {'Juan', 'María', 'Pedro', 'Ana'}
+asignatura2 = {'Pedro', 'Ana', 'Luis', 'Sofía'}
+
+# Estudiantes que han aprobado ambas asignaturas (intersección)
+aprobados_ambas = asignatura1.intersection(asignatura2)
+print("Estudiantes que han aprobado ambas asignaturas:", aprobados_ambas)
+
+# Estudiantes que solo han aprobado una de las dos (diferencia simétrica)
+aprobados_una = asignatura1.symmetric_difference(asignatura2)
+print("Estudiantes que solo han aprobado una de las dos asignaturas:", aprobados_una)
+
+print(f"\Ejecicio 5\n")
+
+# Crear una lista de 25 estudiantes
+estudiantes = []
+for i in range(25):
+    estudiante = {
+        'nombre': f'Estudiante {i+1}',
+        'edad': np.random.randint(18, 25),
+        'notas': np.random.randint(0, 101, size=3).tolist()  # Tres calificaciones aleatorias entre 0 y 100
+    }
+    estudiantes.append(estudiante)
+
+# Calcular y mostrar el promedio de notas de cada estudiante
+for estudiante in estudiantes:
+    notas = np.array(estudiante['notas'])
+    promedio = np.mean(notas)
+    print(f"{estudiante['nombre']} (Edad: {estudiante['edad']}) - Promedio de notas: {promedio:.2f}")
