@@ -70,3 +70,7 @@ QuestionToUser = lambda search: Cities[str(search)] if str(search) in Cities els
 
 print(ShowCity())
 print(QuestionToUser(input("Select a Country: \n")))
+
+if __name__  == "__main__" :
+    print("Hello Word!")
+
